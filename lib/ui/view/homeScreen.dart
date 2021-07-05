@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  static String route = "/";
+  static const String route = "/";
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -13,13 +13,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
-        child: Scaffold(
-      body: Container(
-        color: Colors.black,
-        child: Center(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Center(
           child: Container(
             width: width * 0.8,
-            color: Colors.black,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    ));
+    );
   }
 }

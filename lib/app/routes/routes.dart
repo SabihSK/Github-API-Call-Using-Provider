@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider_by_livdev/ui/view/homeScreen.dart';
+import 'package:provider_by_livdev/ui/view/user_detail_screen.dart';
 
 class AppRoutes {
-  static const String home = '/';
+  String route;
+  AppRoutes(this.route);
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case home:
+      case HomeScreen.route:
         return _buildRoute(HomeScreen(), settings);
+      case UserDetainScreen.route:
+        return _buildRoute(UserDetainScreen(), settings);
 
       default:
         return _buildRoute(Scaffold(), settings);
