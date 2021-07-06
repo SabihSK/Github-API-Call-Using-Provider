@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: AppRoutes(HomeScreen.route).route,
+      initialRoute: AppRoutes(UserDetainScreen.route).route,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
