@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider_by_livdev/app/notifer/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String route = "/";
@@ -11,6 +13,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController userName = TextEditingController();
+
+    Future<void> fetchUserInfo() async {
+      await context.read<UserProvider>().getData();
+    }
+
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -31,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 10,
                   ),
                   TextField(
+                    controller: userName,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -43,7 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30,
                   ),
                   ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context
+                            .read<UserProvider>()
+                            .updateremainingString(userName.text);
+                        fetchUserInfo();
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 15,
