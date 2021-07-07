@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 // import 'package:provider_by_livdev/app/data/models/user_details_model.dart';
 import 'package:provider_by_livdev/app/data/services/github_api_http_client.dart';
+import 'package:provider/provider.dart';
 
 class UserProvider extends ChangeNotifier {
   // ProductCategoryService _githubapidata = ProductCategoryService();
@@ -14,6 +15,8 @@ class UserProvider extends ChangeNotifier {
   void updateremainingString(String remainingString) {
     _remainingString = remainingString;
     print(remainingString);
+    setLoading(true);
+    ProductCategoryService().fetchGithubData();
   }
 
   // var data;
@@ -21,10 +24,10 @@ class UserProvider extends ChangeNotifier {
     setLoading(true);
     print("getData method");
     // try {
-    var data = await ProductCategoryService().fetchGithubData();
+    var bekar = await ProductCategoryService().fetchGithubData();
     setLoading(false);
     print(isLoading);
-    print(data.login);
+    // print(data.login);
     // } catch (e) {
     //   print("pPagal bana raha hai.");
     // }

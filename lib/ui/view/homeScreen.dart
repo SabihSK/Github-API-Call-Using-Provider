@@ -15,9 +15,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     TextEditingController userName = TextEditingController();
 
-    Future<void> fetchUserInfo() async {
-      await context.read<UserProvider>().getData();
-    }
+    // Future<void> fetchUserInfo() async {
+    //   await context.read<UserProvider>().getData();
+    // }
 
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context
                             .read<UserProvider>()
                             .updateremainingString(userName.text);
-                        fetchUserInfo();
+                        // fetchUserInfo();
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
