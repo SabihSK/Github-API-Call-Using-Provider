@@ -34,8 +34,8 @@ class UserDetailsModel {
     required this.company,
     required this.blog,
     required this.location,
-    required this.email,
-    required this.hireable,
+    this.email,
+    this.hireable,
     required this.bio,
     required this.twitterUsername,
     required this.publicRepos,
@@ -69,7 +69,7 @@ class UserDetailsModel {
   String blog;
   String location;
   dynamic email;
-  bool hireable;
+  dynamic hireable;
   String bio;
   String twitterUsername;
   int publicRepos;
