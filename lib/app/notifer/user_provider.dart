@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:provider_by_livdev/app/data/models/user_details_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider_by_livdev/app/data/services/github_api_base_Url.dart';
 
 class UserProvider extends ChangeNotifier {
   // ProductCategoryService _githubapidata = ProductCategoryService();
@@ -13,29 +14,29 @@ class UserProvider extends ChangeNotifier {
   //set variable
   void updateremainingString(String remainingString) {
     _remainingString = remainingString;
-    print(remainingString);
+    print(_remainingString);
     setLoading(true);
+    fetchGithubData(_remainingString);
     // ProductCategoryService().fetchGithubData();
   }
 
   var githubData;
   // Future<UserDetailsModel>
-  fetchGithubData() async {
+  fetchGithubData(var userName) async {
     setLoading(true);
-    var response =
-        // await http.get(Uri.parse(GithubapibaseUrl.baseUrl + "users/sabihsk"));
-        await http.get(
-      Uri.parse("https://api.github.com/users/sabihsk"),
-    );
-    githubData = userDetailsModelFromJson(response.body);
+    var response = await http
+        .get(Uri.parse(GithubapibaseUrl.baseUrl + "users/" + userName));
+    //     await http.get(
+    //   Uri.parse("https://api.github.com/users/sabihsk"),
+    // );
 
     // var data = response.body;
     // print(data.login);
     if (response.statusCode >= 400) {
       throw ('Error');
     } else {
+      githubData = userDetailsModelFromJson(response.body);
       setLoading(false);
-      // return userDetailsModelFromJson(response.body);
     }
   }
 
@@ -46,7 +47,7 @@ class UserProvider extends ChangeNotifier {
   void updateData() {
     print("update chal gaya.");
 
-    fetchGithubData();
+    // fetchGithubData();
   }
 
   void setLoading(bool value) {

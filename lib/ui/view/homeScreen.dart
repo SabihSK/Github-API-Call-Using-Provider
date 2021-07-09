@@ -12,30 +12,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    getData();
-  }
+  //   getData();
+  // }
 
-  var data;
-  bool isLoding = true;
-  Future<void> getData() async {
-    data = await ProductCategoryService().fetchGithubData();
-    // makeLoadingFalse();
-    if (data != null) {
-      setState(() {
-        isLoding = false;
-        print(isLoding);
-      });
-    }
-    // context.read<UserProvider>().fetchGithubData();
-    // context.read<UserProvider>().updateData();
-    // setState(() {
-    //   isLoding = true;
-    // });
-  }
+  // var data;
+  // bool isLoding = true;
+  // Future<void> getData() async {
+  //   data = await ProductCategoryService().fetchGithubData();
+  //   // makeLoadingFalse();
+  //   if (data != null) {
+  //     setState(() {
+  //       isLoding = false;
+  //       print(isLoding);
+  //     });
+  //   }
+  //   // context.read<UserProvider>().fetchGithubData();
+  //   // context.read<UserProvider>().updateData();
+  //   // setState(() {
+  //   //   isLoding = true;
+  //   // });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: isLoding == true
+        body: context.read<UserProvider>().isLoading == true
             ? Center(child: CircularProgressIndicator())
             : Center(
                 child: Container(
@@ -81,8 +81,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              print(data.login);
-                              context.read<UserProvider>().updateData();
+                              // print(data.login);
+
+                              context
+                                  .read<UserProvider>()
+                                  .updateremainingString(userName.text);
+                              // context.read<UserProvider>().updateData();
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
