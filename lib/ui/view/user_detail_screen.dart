@@ -1,6 +1,8 @@
 // import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider_by_livdev/app/notifer/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class UserDetainScreen extends StatefulWidget {
   static const String route = '/user_detail';
@@ -31,7 +33,7 @@ class _UserDetainScreenState extends State<UserDetainScreen> {
                     'https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
               ),
               title: Text(
-                "data",
+                context.watch<UserProvider>().githubDataUserDetail.login,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

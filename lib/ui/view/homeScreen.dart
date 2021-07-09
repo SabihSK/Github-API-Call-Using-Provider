@@ -44,66 +44,86 @@ class _HomeScreenState extends State<HomeScreen> {
     // Future<void> fetchUserInfo() async {
     //   await context.read<UserProvider>().getData();
     // }
+    // var data = context.read<UserProvider>().githubDataUserDetail.id;
 
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: context.read<UserProvider>().isLoading == true
-            ? Center(child: CircularProgressIndicator())
-            : Center(
-                child: Container(
-                  width: width * 0.8,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "assets/icon/github.jpg",
-                          height: 100,
-                          width: 100,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        TextField(
-                          controller: userName,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              // print(data.login);
-
-                              context
-                                  .read<UserProvider>()
-                                  .updateremainingString(userName.text);
-                              // context.read<UserProvider>().updateData();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 15,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Get My Profile"),
-                                ],
-                              ),
-                            ))
-                      ],
+        body: Center(
+          child: Container(
+            width: width * 0.8,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/icon/github.jpg",
+                    height: 100,
+                    width: 100,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: userName,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // print(data.login);
+
+                      context
+                          .read<UserProvider>()
+                          .updateremainingString(userName.text);
+                      // context.read<UserProvider>().updateData();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Get My Profile"),
+                          context.watch<UserProvider>().isLoading == false
+                              ? Text("")
+                              : Row(
+                                  children: [
+                                    SizedBox(width: 20),
+                                    CircularProgressIndicator(
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  context.watch<UserProvider>().isLoadingDone != true
+                      ? Text("")
+                      : Text(
+                          context
+                              .watch<UserProvider>()
+                              .githubDataUserDetail
+                              .id
+                              .toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                ],
               ),
+            ),
+          ),
+        ),
       ),
     );
   }

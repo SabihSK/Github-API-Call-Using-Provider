@@ -2,11 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:provider_by_livdev/app/data/models/user_details_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider_by_livdev/app/data/services/github_api_base_Url.dart';
+import 'package:provider_by_livdev/app/routes/routes.dart';
+import 'package:provider_by_livdev/ui/view/homeScreen.dart';
+import 'package:provider_by_livdev/ui/view/user_detail_screen.dart';
 
 class UserProvider extends ChangeNotifier {
   // ProductCategoryService _githubapidata = ProductCategoryService();
 
   bool isLoading = false;
+  bool isLoadingDone = false;
 
   var _remainingString;
   //gatter
@@ -20,7 +24,7 @@ class UserProvider extends ChangeNotifier {
     // ProductCategoryService().fetchGithubData();
   }
 
-  var githubData;
+  var githubDataUserDetail;
   // Future<UserDetailsModel>
   fetchGithubData(var userName) async {
     setLoading(true);
@@ -35,7 +39,7 @@ class UserProvider extends ChangeNotifier {
     if (response.statusCode >= 400) {
       throw ('Error');
     } else {
-      githubData = userDetailsModelFromJson(response.body);
+      githubDataUserDetail = userDetailsModelFromJson(response.body);
       setLoading(false);
     }
   }
@@ -54,9 +58,11 @@ class UserProvider extends ChangeNotifier {
     isLoading = value;
 
     if (isLoading == false) {
-      print(githubData.id);
-      print(githubData.followers);
-      print(githubData.following);
+      AppRoutes(UserDetainScreen.route).route;
+      isLoadingDone = true;
+      print(githubDataUserDetail.id);
+      print(githubDataUserDetail.followers);
+      print(githubDataUserDetail.following);
     }
     notifyListeners();
   }

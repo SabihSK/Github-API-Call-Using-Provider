@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_by_livdev/app/notifer/user_provider.dart';
 import 'package:provider_by_livdev/app/routes/routes.dart';
 import 'package:provider_by_livdev/ui/view/homeScreen.dart';
+import 'package:provider_by_livdev/ui/view/user_detail_screen.dart';
 // import 'package:provider_by_livdev/ui/view/user_detail_screen.dart';
 // import 'package:provider_by_livdev/ui/view/homeScreen.dart';
 
