@@ -1,4 +1,5 @@
-// import 'dart:ui';
+import 'dart:ui';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:provider_by_livdev/app/notifer/user_provider.dart';
@@ -15,6 +16,7 @@ class UserDetainScreen extends StatefulWidget {
 class _UserDetainScreenState extends State<UserDetainScreen> {
   @override
   Widget build(BuildContext context) {
+    final userProviderData = context.watch<UserProvider>();
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -30,10 +32,10 @@ class _UserDetainScreenState extends State<UserDetainScreen> {
               leading: CircleAvatar(
                 // radius: width * 0.06,
                 backgroundImage: NetworkImage(
-                    'https://images.pexels.com/photos/462118/pexels-photo-462118.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'),
+                    userProviderData.githubDataUserDetail.avatarUrl),
               ),
               title: Text(
-                context.watch<UserProvider>().githubDataUserDetail.login,
+                userProviderData.githubDataUserDetail.login,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -41,7 +43,7 @@ class _UserDetainScreenState extends State<UserDetainScreen> {
                 ),
               ),
               subtitle: Text(
-                "data",
+                userProviderData.githubDataUserDetail.bio,
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -63,14 +65,14 @@ class _UserDetainScreenState extends State<UserDetainScreen> {
                         width: 20,
                       ),
                       Text(
-                        "20 Followers",
+                        "${userProviderData.githubDataUserDetail.followers} Followers",
                         style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                        "20 Following",
+                        "${userProviderData.githubDataUserDetail.following} Following",
                         style: TextStyle(color: Colors.white),
                       ),
                     ],

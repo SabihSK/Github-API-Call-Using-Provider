@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider_by_livdev/app/data/services/github_api_http_client.dart';
 import 'package:provider_by_livdev/app/notifer/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'dart:ui';
+import 'dart:js';
 
 class HomeScreen extends StatefulWidget {
   static const String route = "/";
@@ -12,39 +14,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   getData();
-  // }
-
-  // var data;
-  // bool isLoding = true;
-  // Future<void> getData() async {
-  //   data = await ProductCategoryService().fetchGithubData();
-  //   // makeLoadingFalse();
-  //   if (data != null) {
-  //     setState(() {
-  //       isLoding = false;
-  //       print(isLoding);
-  //     });
-  //   }
-  //   // context.read<UserProvider>().fetchGithubData();
-  //   // context.read<UserProvider>().updateData();
-  //   // setState(() {
-  //   //   isLoding = true;
-  //   // });
-  // }
-
   @override
   Widget build(BuildContext context) {
+    final userProviderData = context.watch<UserProvider>();
     TextEditingController userName = TextEditingController();
-
-    // Future<void> fetchUserInfo() async {
-    //   await context.read<UserProvider>().getData();
-    // }
-    // var data = context.read<UserProvider>().githubDataUserDetail.id;
 
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -80,12 +53,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // print(data.login);
-
                       context
                           .read<UserProvider>()
-                          .updateremainingString(userName.text);
-                      // context.read<UserProvider>().updateData();
+                          .updateremainingString(userName.text, context);
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -95,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text("Get My Profile"),
-                          context.watch<UserProvider>().isLoading == false
-                              ? Text("")
+                          userProviderData.isLoading == false
+                              ? SizedBox()
                               : Row(
                                   children: [
                                     SizedBox(width: 20),
@@ -109,16 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  context.watch<UserProvider>().isLoadingDone != true
-                      ? Text("")
-                      : Text(
-                          context
-                              .watch<UserProvider>()
-                              .githubDataUserDetail
-                              .id
-                              .toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
                 ],
               ),
             ),

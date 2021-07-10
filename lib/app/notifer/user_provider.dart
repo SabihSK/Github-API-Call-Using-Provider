@@ -1,4 +1,8 @@
+import 'dart:js';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:provider_by_livdev/app/data/models/user_details_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider_by_livdev/app/data/services/github_api_base_Url.dart';
@@ -16,17 +20,17 @@ class UserProvider extends ChangeNotifier {
   //gatter
   get remainingString => _remainingString;
   //set variable
-  void updateremainingString(String remainingString) {
+  void updateremainingString(String remainingString, BuildContext context) {
     _remainingString = remainingString;
     print(_remainingString);
     setLoading(true);
-    fetchGithubData(_remainingString);
+    fetchGithubData(_remainingString, context);
     // ProductCategoryService().fetchGithubData();
   }
 
   var githubDataUserDetail;
   // Future<UserDetailsModel>
-  fetchGithubData(var userName) async {
+  fetchGithubData(var userName, context) async {
     setLoading(true);
     var response = await http
         .get(Uri.parse(GithubapibaseUrl.baseUrl + "users/" + userName));
@@ -40,6 +44,7 @@ class UserProvider extends ChangeNotifier {
       throw ('Error');
     } else {
       githubDataUserDetail = userDetailsModelFromJson(response.body);
+      Navigator.pushNamed(context, AppRoutes(UserDetainScreen.route).route);
       setLoading(false);
     }
   }
@@ -58,7 +63,7 @@ class UserProvider extends ChangeNotifier {
     isLoading = value;
 
     if (isLoading == false) {
-      AppRoutes(UserDetainScreen.route).route;
+      // Navigator.pushNamed(context ,AppRoutes(UserDetainScreen.route).route);
       isLoadingDone = true;
       print(githubDataUserDetail.id);
       print(githubDataUserDetail.followers);
